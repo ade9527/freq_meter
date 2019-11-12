@@ -19,9 +19,12 @@
  */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <libopencm3/cm3/systick.h>
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/gpio.h>
+
+#include "debug.h"
 
 // led PB12
 
@@ -32,21 +35,21 @@ int main(void)
 	rcc_periph_clock_enable(RCC_GPIOB);
 
 	/* Configure LED GPIO12 */
-	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_10_MHZ,
+	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_50_MHZ,
 		      GPIO_CNF_OUTPUT_PUSHPULL,
 		      GPIO12);
-	
-	/*set LED ON */
+
+	debug_init();
+
+	printf("hello world!\r\n");
+
+	/*set LED toggle */
 
 	gpio_set(GPIOB, GPIO12);
 	int s = 0;
 	while (1) {
-		if ((s % 2) == 0) {
-			gpio_set(GPIOB, GPIO12);
-		} else {
-			gpio_clear(GPIOB, GPIO12);
-		}
-		s++;
+		gpio_toggle(GPIOB, GPIO12);
+
 		for(int i = 10000; i > 0; i--) {
 			for (int j = 1000; j > 0; j--) {
 			}

@@ -52,7 +52,7 @@ ARCH_FLAGS	= -mthumb -mcpu=cortex-m3 $(FP_FLAGS) -mfix-cortex-m3-ldrd
 TGT_CFLAGS	+= $(OPT) $(CSTD) $(DEBUG)
 TGT_CFLAGS	+= $(ARCH_FLAGS)
 TGT_CFLAGS	+= -Wextra -Wshadow -Wimplicit-function-declaration
-TGT_CFLAGS	+= -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes
+TGT_CFLAGS	+= -Wredundant-decls -Wstrict-prototypes
 TGT_CFLAGS	+= -fno-common -ffunction-sections -fdata-sections
 
 # C++ flags
@@ -63,7 +63,7 @@ TGT_CXXFLAGS	+= -fno-common -ffunction-sections -fdata-sections
 
 # C & C++ preprocessor common flags
 TGT_CPPFLAGS	+= -MD
-TGT_CPPFLAGS	+= -Wall -Wundef
+#TGT_CPPFLAGS	+= -Wall -Wundef
 TGT_CPPFLAGS	+= $(DEFS)
 
 # Linker flags
