@@ -25,7 +25,17 @@
 #include <libopencm3/stm32/gpio.h>
 
 #include "debug.h"
+#include "platform.h"
+#include "mpu_6050.h"
 
+
+void delay(int ms)
+{
+	for (int i = 0; i < ms; i++) {
+		for(volatile int j = 0; j < 10000; j++){}
+
+	}
+}
 // led PB12
 
 int main(void)
@@ -40,8 +50,17 @@ int main(void)
 		      GPIO12);
 
 	debug_init();
+	i2c1_init();
+
+	struct mpu_dev mpu = {0};
+	struct axis gyro = {0};
+	struct axis accel = {0};
+	int16_t temp = 0;
+
+	mpu_dev_init(&mpu, I2C1, MPU_ADDR_AD0_L);
 
 	printf("hello world!\r\n");
+
 
 	/*set LED toggle */
 
@@ -50,10 +69,15 @@ int main(void)
 	while (1) {
 		gpio_toggle(GPIOB, GPIO12);
 
-		for(int i = 10000; i > 0; i--) {
-			for (int j = 1000; j > 0; j--) {
-			}
-		}
+		mpu_get_temp(&mpu, &temp);
+		printf("mpu temp:%d\r\n", temp);
+
+		mpu_get_gyro(&mpu, &gyro);
+		printf("gyro x:%d, y:%d, z:%d\r\n", gyro.x, gyro.y, gyro.z);
+		mpu_get_accel(&mpu, &accel);
+		printf("accel x:%d, y:%d, z:%d\r\n", accel.x, accel.y, accel.z);
+
+		delay(500);
 	}
 	while(1);
 	return 0;

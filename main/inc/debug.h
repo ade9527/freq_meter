@@ -1,8 +1,8 @@
 /*
  * This file proivte debug mothed.
  */
-#ifndef __DEBUG_H__
-#define __DEBUG_H__
+#ifndef __DEBUG_H
+#define __DEBUG_H
 
 #define DEBUG_USART
 

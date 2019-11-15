@@ -10,6 +10,7 @@ OPENCM3_TARGET := stm32/f1
 OPENCM3_DIR := libs/libopencm3
 
 TARGET := main
+TARGET += modules
 #TARGET += modules os
 
 Q = @+
